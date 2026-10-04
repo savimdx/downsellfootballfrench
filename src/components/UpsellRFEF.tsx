@@ -2,7 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { 
   Clock, 
   Sparkles, 
-  Check
+  Check,
+  Lock,
+  Shield,
+  Zap
 } from 'lucide-react';
 
 const MOCKUP_PACK_IMG = "https://i.ibb.co/nNP2xQp8/Mockup-Pack-Treinador-de-Elite-do-PSG-comppp.png";
@@ -220,6 +223,43 @@ export default function UpsellRFEF({ onAccept, onDecline }: UpsellRFEFProps) {
             {/* HOTMART CONTAINER */}
             <div className="w-full flex justify-center items-center">
               <div id="hotmart-sales-funnel" className="w-full flex justify-center items-center min-h-[60px]"></div>
+            </div>
+
+            {/* TRUST BADGES ROW (BELOW WIDGET) */}
+            <div className="border-t border-slate-200 mt-4 pt-4">
+              <div className="grid grid-cols-3 gap-2 text-center">
+                
+                {/* 1. PAIEMENT SSL SÉCURISÉ */}
+                <div className="flex flex-col items-center justify-center text-center">
+                  <div className="text-amber-500 mb-1 flex items-center justify-center">
+                    <Lock className="h-4 w-4" />
+                  </div>
+                  <span className="text-[10px] sm:text-xs font-bold text-slate-600 uppercase tracking-wider leading-tight">
+                    PAIEMENT<br />SSL SÉCURISÉ
+                  </span>
+                </div>
+
+                {/* 2. GARANTIE 7 JOURS */}
+                <div className="flex flex-col items-center justify-center text-center">
+                  <div className="text-blue-500 mb-1 flex items-center justify-center">
+                    <Shield className="h-4 w-4 fill-blue-500" />
+                  </div>
+                  <span className="text-[10px] sm:text-xs font-bold text-slate-600 uppercase tracking-wider leading-tight">
+                    GARANTIE 7<br />JOURS
+                  </span>
+                </div>
+
+                {/* 3. TÉLÉCHARGEMENT NUMÉRIQUE */}
+                <div className="flex flex-col items-center justify-center text-center">
+                  <div className="text-amber-500 mb-1 flex items-center justify-center">
+                    <Zap className="h-4 w-4 fill-amber-500" />
+                  </div>
+                  <span className="text-[10px] sm:text-xs font-bold text-slate-600 uppercase tracking-wider leading-tight">
+                    TÉLÉCHARGEMENT<br />NUMÉRIQUE
+                  </span>
+                </div>
+
+              </div>
             </div>
 
           </div>
