@@ -5,7 +5,7 @@ import {
   Check
 } from 'lucide-react';
 
-const MOCKUP_PACK_IMG = "https://i.ibb.co/cc8kxXMZ/Chat-GPT-Image-27-de-set-de-2026-14-53-382.png";
+const MOCKUP_PACK_IMG = "https://i.ibb.co/nNP2xQp8/Mockup-Pack-Treinador-de-Elite-do-PSG-comppp.png";
 
 interface UpsellRFEFProps {
   onAccept: () => void;
@@ -149,7 +149,7 @@ export default function UpsellRFEF({ onAccept, onDecline }: UpsellRFEFProps) {
               onError={(e) => {
                 (e.currentTarget as HTMLImageElement).src = "/elite-coach-pack.png";
               }}
-              alt="Pack Entraîneur D'Élite" 
+              alt="Mockup-Pack-Treinador-de-Elite-do-PSG-comppp" 
               className="w-full max-w-[340px] sm:max-w-[400px] h-auto object-contain drop-shadow-md"
               loading="eager"
               // @ts-ignore
@@ -177,6 +177,10 @@ export default function UpsellRFEF({ onAccept, onDecline }: UpsellRFEFProps) {
                 9 €
               </span>
             </div>
+
+            <p className="text-[11px] sm:text-xs text-slate-500 font-medium">
+              (Vous pouvez effectuer le paiement dans votre devise locale)
+            </p>
 
             <p className="text-xs sm:text-sm text-orange-900 font-bold whitespace-nowrap">
               ⚡ Accès numérique immédiat à vie
