@@ -8,7 +8,9 @@ import {
   Zap
 } from 'lucide-react';
 
-const MOCKUP_PACK_IMG = "https://i.ibb.co/nNP2xQp8/Mockup-Pack-Treinador-de-Elite-do-PSG-comppp.png";
+const MOCKUP_PACK_WEBP = "/mockup-pack-psg.webp";
+const MOCKUP_PACK_PNG = "/mockup-pack-psg.png";
+const MOCKUP_PACK_FALLBACK = "https://i.ibb.co/nNP2xQp8/Mockup-Pack-Treinador-de-Elite-do-PSG-comppp.png";
 
 interface UpsellRFEFProps {
   onAccept: () => void;
@@ -28,58 +30,49 @@ export default function UpsellRFEF({ onAccept, onDecline }: UpsellRFEFProps) {
   // HOTMART - Sales Funnel Widget
   // script load and setup
   useEffect(() => {
-    let checkInterval: any = null;
-
     const mountHotmart = () => {
-      const container = document.getElementById('hotmart-sales-funnel');
       const checkoutElements = (window as any).checkoutElements;
-      
-      if (checkoutElements && container) {
+      const target = document.getElementById('hotmart-sales-funnel');
+      if (checkoutElements && target) {
         try {
-          if (!container.querySelector('iframe')) {
-            checkoutElements.init('salesFunnel').mount('#hotmart-sales-funnel');
-          }
-          return true;
+          checkoutElements.init('salesFunnel').mount('#hotmart-sales-funnel');
         } catch (err) {
-          console.error("Error initializing Hotmart widget:", err);
+          console.error("Hotmart mount error:", err);
         }
       }
-      return false;
     };
 
-    // Ensure Hotmart checkout script is present in DOM
     let script = document.querySelector('script[src="https://checkout.hotmart.com/lib/hotmart-checkout-elements.js"]') as HTMLScriptElement;
     if (!script) {
       script = document.createElement('script');
       script.src = 'https://checkout.hotmart.com/lib/hotmart-checkout-elements.js';
       script.async = true;
+      script.onload = () => mountHotmart();
       document.body.appendChild(script);
+    } else {
+      if ((window as any).checkoutElements) {
+        mountHotmart();
+      } else {
+        script.addEventListener('load', mountHotmart, { once: true });
+      }
     }
-    
-    const handleLoad = () => mountHotmart();
-    script.addEventListener('load', handleLoad);
 
-    // Initial attempt
     mountHotmart();
 
-    // Verify and poll until iframe is mounted
-    checkInterval = setInterval(() => {
-      const container = document.getElementById('hotmart-sales-funnel');
-      if (container && container.querySelector('iframe')) {
-        clearInterval(checkInterval);
+    const interval = setInterval(() => {
+      const target = document.getElementById('hotmart-sales-funnel');
+      if (target && target.children.length > 0) {
+        clearInterval(interval);
       } else {
         mountHotmart();
       }
-    }, 250);
+    }, 400);
 
-    const timeout = setTimeout(() => {
-      if (checkInterval) clearInterval(checkInterval);
-    }, 10000);
+    const timer = setTimeout(() => clearInterval(interval), 6000);
 
     return () => {
-      script.removeEventListener('load', handleLoad);
-      if (checkInterval) clearInterval(checkInterval);
-      clearTimeout(timeout);
+      clearInterval(interval);
+      clearTimeout(timer);
     };
   }, []);
 
@@ -145,21 +138,29 @@ export default function UpsellRFEF({ onAccept, onDecline }: UpsellRFEFProps) {
         {/* ================= 4. CARTE PRODUIT COMPACTE ================= */}
         <div className="bg-white border-2 border-orange-500 rounded-3xl p-5 sm:p-7 shadow-xl relative overflow-hidden space-y-5">
           
-          {/* MOCKUP DU PACK */}
+          {/* MOCKUP DU PACK OPTIMISÉ POUR CHARGEMENT ULTRA-RAPIDE */}
           <div className="w-full flex justify-center pt-3">
-            <img 
-              src={MOCKUP_PACK_IMG} 
-              onError={(e) => {
-                (e.currentTarget as HTMLImageElement).src = "/elite-coach-pack.png";
-              }}
-              alt="Mockup-Pack-Treinador-de-Elite-do-PSG-comppp" 
-              className="w-full max-w-[340px] sm:max-w-[400px] h-auto object-contain drop-shadow-md"
-              loading="eager"
-              // @ts-ignore
-              fetchPriority="high"
-              width={500}
-              height={500}
-            />
+            <picture className="w-full max-w-[340px] sm:max-w-[400px] flex justify-center">
+              <source srcSet={MOCKUP_PACK_WEBP} type="image/webp" />
+              <source srcSet={MOCKUP_PACK_PNG} type="image/png" />
+              <img 
+                src={MOCKUP_PACK_WEBP} 
+                onError={(e) => {
+                  const target = e.currentTarget as HTMLImageElement;
+                  if (target.src !== MOCKUP_PACK_FALLBACK) {
+                    target.src = MOCKUP_PACK_FALLBACK;
+                  }
+                }}
+                alt="Mockup-Pack-Treinador-de-Elite-do-PSG-comppp" 
+                className="w-full h-auto object-contain drop-shadow-md"
+                loading="eager"
+                decoding="async"
+                // @ts-ignore
+                fetchPriority="high"
+                width={640}
+                height={640}
+              />
+            </picture>
           </div>
 
           {/* BLOC PRIX GARANTI SANS CASSE DE LIGNE */}
