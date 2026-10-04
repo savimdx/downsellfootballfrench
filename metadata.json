@@ -1,0 +1,8 @@
+{
+  "name": "Downsell +1000 Séances d’ Entraînement de Football",
+  "description": "Página de ventas optimizada y de alta conversión para entrenadores de fútbol, profesores y escuelas deportivas.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
