@@ -8,9 +8,9 @@ import {
   Zap
 } from 'lucide-react';
 
-const MOCKUP_PACK_WEBP = "/mockup-pack-psg.webp";
-const MOCKUP_PACK_PNG = "/mockup-pack-psg.png";
-const MOCKUP_PACK_FALLBACK = "https://i.ibb.co/nNP2xQp8/Mockup-Pack-Treinador-de-Elite-do-PSG-comppp.png";
+const MOCKUP_PACK_WEBP = "/100-exercices-explosif.webp";
+const MOCKUP_PACK_PNG = "/100-exercices-explosif.png";
+const MOCKUP_PACK_FALLBACK = "https://i.ibb.co/YC2hkqc/100-Exerc-cios-de-Futebol-Explosivo-compressed.png";
 
 interface UpsellRFEFProps {
   onAccept: () => void;
@@ -27,17 +27,20 @@ export default function UpsellRFEF({ onAccept, onDecline }: UpsellRFEFProps) {
     return () => clearInterval(interval);
   }, []);
 
-  // HOTMART - Sales Funnel Widget
-  // script load and setup
+  // <!-- HOTMART - Sales Funnel Widget -->
+  // <!--- script load and setup --->
   useEffect(() => {
+    let mounted = true;
+
     const mountHotmart = () => {
+      if (!mounted) return;
       const checkoutElements = (window as any).checkoutElements;
       const target = document.getElementById('hotmart-sales-funnel');
       if (checkoutElements && target) {
         try {
           checkoutElements.init('salesFunnel').mount('#hotmart-sales-funnel');
         } catch (err) {
-          console.error("Hotmart mount error:", err);
+          console.error("Hotmart salesFunnel init/mount error:", err);
         }
       }
     };
@@ -47,19 +50,24 @@ export default function UpsellRFEF({ onAccept, onDecline }: UpsellRFEFProps) {
       script = document.createElement('script');
       script.src = 'https://checkout.hotmart.com/lib/hotmart-checkout-elements.js';
       script.async = true;
-      script.onload = () => mountHotmart();
+      script.onload = () => {
+        if (mounted) mountHotmart();
+      };
       document.body.appendChild(script);
     } else {
       if ((window as any).checkoutElements) {
         mountHotmart();
       } else {
-        script.addEventListener('load', mountHotmart, { once: true });
+        script.addEventListener('load', () => {
+          if (mounted) mountHotmart();
+        }, { once: true });
       }
     }
 
     mountHotmart();
 
     const interval = setInterval(() => {
+      if (!mounted) return;
       const target = document.getElementById('hotmart-sales-funnel');
       if (target && target.children.length > 0) {
         clearInterval(interval);
@@ -68,9 +76,10 @@ export default function UpsellRFEF({ onAccept, onDecline }: UpsellRFEFProps) {
       }
     }, 400);
 
-    const timer = setTimeout(() => clearInterval(interval), 6000);
+    const timer = setTimeout(() => clearInterval(interval), 8000);
 
     return () => {
+      mounted = false;
       clearInterval(interval);
       clearTimeout(timer);
     };
@@ -83,17 +92,17 @@ export default function UpsellRFEF({ onAccept, onDecline }: UpsellRFEFProps) {
   };
 
   return (
-    <div id="downsell-page" className="relative min-h-screen bg-slate-50 text-slate-900 antialiased overflow-x-clip font-sans pb-16 selection:bg-orange-500 selection:text-white">
+    <div id="upsell-page" className="relative min-h-screen bg-slate-50 text-slate-900 antialiased overflow-x-clip font-sans pb-16 selection:bg-orange-500 selection:text-white">
       
       {/* Background soccer pitch subtle grid */}
       <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.03)_1px,transparent_1px)] bg-[size:3.5rem_3.5rem] pointer-events-none"></div>
 
-      {/* ================= 1. STICKY TOP RED BANNER (OFFRE PAR TEMPS LIMITÉ) ================= */}
+      {/* ================= 1. STICKY TOP RED BANNER (OFFRE UPSELL EXCLUSIVE) ================= */}
       <div className="bg-[#E61E05] text-white py-2 px-3 shadow-md sticky top-0 z-50">
         <div className="max-w-3xl mx-auto flex items-center justify-center gap-3 sm:gap-6 text-center">
           <div className="flex items-center gap-1.5 font-black tracking-wider text-xs sm:text-sm uppercase whitespace-nowrap">
             <span className="text-sm select-none animate-pulse">🔥</span>
-            <span className="whitespace-nowrap">OFFRE PAR TEMPS LIMITÉ</span>
+            <span className="whitespace-nowrap">OFFRE UPSELL EXCLUSIVE</span>
           </div>
           <div className="flex items-center gap-1.5 bg-[#9c1202]/60 border border-white/20 px-2.5 py-0.5 rounded-full text-xs font-black font-mono tracking-wider whitespace-nowrap">
             <Clock className="h-3.5 w-3.5 text-amber-300 animate-pulse flex-shrink-0" />
@@ -104,10 +113,10 @@ export default function UpsellRFEF({ onAccept, onDecline }: UpsellRFEFProps) {
 
       <div className="mx-auto max-w-3xl px-4 sm:px-6 pt-5 relative z-10 space-y-5">
         
-        {/* ================= 2. BARRE DE PROGRESSION 95% ================= */}
+        {/* ================= 2. BARRE DE PROGRESSION UPSELL ================= */}
         <div className="bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 shadow-sm text-center space-y-3">
           <p className="text-xs sm:text-sm font-black text-slate-800 uppercase tracking-wide">
-            COMMANDE RÉSERVÉE • DERNIÈRE ÉTAPE
+            ATTENDEZ ! VOTRE COMMANDE N'EST PAS ENCORE TERMINÉE...
           </p>
           
           <div className="flex items-center justify-between gap-3 max-w-xl mx-auto">
@@ -123,15 +132,15 @@ export default function UpsellRFEF({ onAccept, onDecline }: UpsellRFEFProps) {
           </div>
         </div>
         
-        {/* ================= 3. TITRE PRINCIPAL COURT & PERSUASIF (PRIX SANS CASSE) ================= */}
+        {/* ================= 3. TITRE PRINCIPAL UPSELL (+100 EXERCICES) ================= */}
         <div className="text-center space-y-2">
           <h1 className="text-2xl sm:text-3xl md:text-4xl font-[900] tracking-tight leading-tight uppercase text-slate-900">
-            <span className="whitespace-nowrap text-[#E61E05]">POUR SEULEMENT 9 € :</span>{' '}
-            <span className="whitespace-normal">ALLEZ-VOUS LAISSER PASSER CETTE OPPORTUNITÉ ?</span>
+            <span className="whitespace-nowrap text-[#E61E05]">+100 EXERCICES</span> POUR DÉVELOPPER{' '}
+            <span className="whitespace-normal">VITESSE, ENDURANCE ET EXPLOSIVITÉ</span>
           </h1>
 
           <p className="text-xs sm:text-sm md:text-base text-slate-600 max-w-xl mx-auto font-medium">
-            Dernière chance d'obtenir le Pack Entraîneur D'Élite avec <span className="whitespace-nowrap font-bold text-slate-900">95% de réduction immédiate</span>.
+            Complétez votre commande avec le programme complet de préparation physique moderne pour <span className="whitespace-nowrap font-bold text-slate-900">seulement 9 €</span> au lieu de 180 € (<span className="text-[#E61E05] font-bold">-95%</span>).
           </p>
         </div>
 
@@ -151,7 +160,7 @@ export default function UpsellRFEF({ onAccept, onDecline }: UpsellRFEFProps) {
                     target.src = MOCKUP_PACK_FALLBACK;
                   }
                 }}
-                alt="Mockup-Pack-Treinador-de-Elite-do-PSG-comppp" 
+                alt="+100 Exercices pour Développer Vitesse, Endurance et Explosivité" 
                 className="w-full h-auto object-contain drop-shadow-md"
                 loading="eager"
                 decoding="async"
@@ -201,19 +210,19 @@ export default function UpsellRFEF({ onAccept, onDecline }: UpsellRFEFProps) {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-700">
               <div className="flex items-center gap-2 bg-slate-50 border border-slate-200/80 p-2.5 rounded-xl">
                 <Check className="h-4 w-4 text-emerald-600 flex-shrink-0" />
-                <span className="font-semibold text-slate-900">Exercices pour les équipes d'élite de la Ligue 1</span>
+                <span className="font-semibold text-slate-900">+100 Exercices Spécifiques de Vitesse</span>
               </div>
               <div className="flex items-center gap-2 bg-slate-50 border border-slate-200/80 p-2.5 rounded-xl">
                 <Check className="h-4 w-4 text-emerald-600 flex-shrink-0" />
-                <span className="font-semibold text-slate-900">Tactique & Schémas Pratiques</span>
+                <span className="font-semibold text-slate-900">Endurance & Puissance Aérobie Football</span>
               </div>
               <div className="flex items-center gap-2 bg-slate-50 border border-slate-200/80 p-2.5 rounded-xl">
                 <Check className="h-4 w-4 text-emerald-600 flex-shrink-0" />
-                <span className="font-semibold text-slate-900">Préparation Physique Intégrée</span>
+                <span className="font-semibold text-slate-900">Explosivité, Vivacité & Changements de Rythme</span>
               </div>
               <div className="flex items-center gap-2 bg-slate-50 border border-slate-200/80 p-2.5 rounded-xl">
                 <Check className="h-4 w-4 text-emerald-600 flex-shrink-0" />
-                <span className="font-semibold text-slate-900">Format Mobile & Imprimable</span>
+                <span className="font-semibold text-slate-900">Fiches prêtes à l'emploi, adaptées à tous les formats d'appareils</span>
               </div>
             </div>
           </div>

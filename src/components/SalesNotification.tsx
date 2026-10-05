@@ -12,49 +12,49 @@ const SALE_NOTIFICATIONS: SaleItem[] = [
   {
     name: "Thomas M.",
     location: "Paris, France",
-    product: "Pack Entraîneur D'Élite",
+    product: "+100 Exercices Vitesse & Endurance",
     time: "il y a 2 minutes"
   },
   {
     name: "Lucas B.",
     location: "Lyon, France",
-    product: "Pack Entraîneur D'Élite",
+    product: "+100 Exercices Vitesse & Endurance",
     time: "il y a 4 minutes"
   },
   {
     name: "Maxime D.",
     location: "Marseille, France",
-    product: "Pack Entraîneur D'Élite",
+    product: "+100 Exercices Vitesse & Endurance",
     time: "il y a 7 minutes"
   },
   {
     name: "Antoine L.",
     location: "Bordeaux, France",
-    product: "Pack Entraîneur D'Élite",
+    product: "+100 Exercices Vitesse & Endurance",
     time: "il y a 1 minute"
   },
   {
     name: "Romain G.",
     location: "Lille, France",
-    product: "Pack Entraîneur D'Élite",
+    product: "+100 Exercices Vitesse & Endurance",
     time: "il y a 5 minutes"
   },
   {
     name: "Julien R.",
     location: "Nantes, France",
-    product: "Pack Entraîneur D'Élite",
+    product: "+100 Exercices Vitesse & Endurance",
     time: "il y a 11 minutes"
   },
   {
     name: "Alexandre F.",
     location: "Toulouse, France",
-    product: "Pack Entraîneur D'Élite",
+    product: "+100 Exercices Vitesse & Endurance",
     time: "il y a 8 minutes"
   },
   {
     name: "Nicolas V.",
     location: "Strasbourg, France",
-    product: "Pack Entraîneur D'Élite",
+    product: "+100 Exercices Vitesse & Endurance",
     time: "il y a 3 minutes"
   }
 ];

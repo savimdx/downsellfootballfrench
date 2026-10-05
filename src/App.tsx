@@ -20,7 +20,7 @@ export default function App() {
 
   // Shared countdown ticking sync
   useEffect(() => {
-    document.title = "Pour seulement 9 € : Allez-vous vraiment laisser passer cette opportunité ? (-95%)";
+    document.title = "+100 Exercices pour Développer Vitesse, Endurance et Explosivité - 9 € (-95%)";
     const timer = setInterval(() => {
       setTimeLeftSticky((prev) => {
         if (prev <= 1) {
@@ -101,7 +101,7 @@ export default function App() {
                   <li className="flex justify-between items-center text-amber-900 bg-amber-500/10 border border-amber-500/30 p-2.5 rounded-xl">
                     <div className="flex items-center gap-2">
                       <Sparkles className="h-4 w-4 text-amber-600 flex-shrink-0 animate-pulse" />
-                      <span className="font-bold text-slate-900">Pack Entraîneur D'Élite</span>
+                      <span className="font-bold text-slate-900">+100 Exercices Vitesse, Endurance & Explosivité</span>
                     </div>
                     <span className="font-black font-mono text-orange-600 whitespace-nowrap">9 €</span>
                   </li>
@@ -109,7 +109,7 @@ export default function App() {
                   <li className="flex justify-between items-center text-slate-400 italic p-1 border-t border-slate-200 pt-2.5">
                     <div className="flex items-center gap-2">
                       <span className="text-slate-400">✕</span>
-                      <span>Pack Entraîneur D'Élite</span>
+                      <span>+100 Exercices Vitesse, Endurance & Explosivité</span>
                     </div>
                     <span className="text-[10px] uppercase font-mono tracking-widest font-bold text-slate-400">Non retenu</span>
                   </li>
@@ -133,11 +133,11 @@ export default function App() {
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
                 {viewMode === 'thankyou_accepted' && (
                   <button 
-                    onClick={() => alert("Téléchargement du Pack Entraîneur D'Élite initié avec succès.")}
+                    onClick={() => console.log("Téléchargement initié")}
                     className="px-6 py-3.5 rounded-xl bg-gradient-to-r from-orange-600 to-amber-500 hover:brightness-110 text-white font-black text-xs uppercase tracking-widest transition-all flex items-center justify-center gap-2 cursor-pointer shadow-lg animate-pulse"
                   >
                     <Download className="h-4 w-4" />
-                    <span>Télécharger le Pack Entraîneur D'Élite</span>
+                    <span>Télécharger +100 Exercices Vitesse, Endurance & Explosivité</span>
                   </button>
                 )}
               </div>
