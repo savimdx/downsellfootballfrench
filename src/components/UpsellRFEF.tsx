@@ -191,10 +191,6 @@ export default function UpsellRFEF({ onAccept, onDecline }: UpsellRFEFProps) {
               </span>
             </div>
 
-            <p className="text-[11px] sm:text-xs text-slate-500 font-medium">
-              (Vous pouvez effectuer le paiement dans votre devise locale)
-            </p>
-
             <p className="text-xs sm:text-sm text-orange-900 font-bold whitespace-nowrap">
               ⚡ Accès numérique immédiat à vie
             </p>
